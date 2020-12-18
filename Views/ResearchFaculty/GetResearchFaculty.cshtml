@@ -1,0 +1,47 @@
+﻿@model Project3_FinalExam.ViewModels.ResearchFacultyViewModel
+@{
+    ViewData["Title"] = "Research-";
+}
+
+
+<h2>@Model.Title</h2>
+@section CSS{
+    <style>
+        body {
+            background: #4CA1AF; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
+}
+
+<div id="researchArea"><ul id="researchInterest"></ul></div>
+@for (var x = 0; x < Model.ResearchFaculty.Count; x++)
+{
+    <li id="@String.Concat("myHdng", x)"><a href=@String.Concat("#myDiv", x)>@Model.ResearchFaculty[x].facultyName</a></li>}
+@for (var x = 0; x < Model.ResearchFaculty.Count; x++)
+{
+    <div id="@String.Concat("myDiv", x)">
+        <h3>Username: @Model.ResearchFaculty[x].username</h3>
+        @for (var y = 1; y < Model.ResearchFaculty[x].citations.Count; y++)
+        {
+            <p>[@y].@Model.ResearchFaculty[x].citations[y]</p>}
+    </div>}
+
+
+@section scripts{
+
+    <script src="~/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="~/jqueryui/themes/cupertino/jquery-ui.min.css">
+    <script src="~/jqueryui/jquery-ui.js"></script>
+    <script type="text/javascript" src="~/jqueryui/jquery-ui.min.js"></script>
+
+
+    <script>
+        var list = document.querySelectorAll("[id ^= 'myHdng']");
+        $("#researchInterest").append(list);
+        var divs = document.querySelectorAll("[id ^= 'myDiv']");
+        $("#researchArea").append(divs);
+        $("#researchArea").tabs();
+    </script>
+} 

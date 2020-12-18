@@ -1,0 +1,59 @@
+﻿@model Project3_FinalExam.ViewModels.MinorsViewModel
+
+@{
+    ViewData["Title"] = "Minors-";
+}
+
+<h2>@Model.Title</h2>
+@section CSS{
+    <style>
+        body {
+            background: #4CA1AF; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
+}
+
+<div id="minor"></div>
+
+@for (var i = 0; i < Model.Minors.Count; i++)
+{
+    <h3 id=@string.Concat("myHdng",i)><b>@Model.Minors[i].title</b></h3>
+
+    <div id=@String.Concat("myDiv", i)>
+        <p>@Model.Minors[i].name</p>
+        <p>@Model.Minors[i].description</p>
+        <ul>
+            @foreach (var cour in Model.Minors[i].courses)
+            {
+                <li>@cour</li>
+            }
+        </ul>
+        <p>@Model.Minors[i].note</p>
+    </div>
+
+}
+@*Get jQuery and jQueryUI Scripts from wwwroot*@
+@section Scripts {
+    <script src="~/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="~/jqueryui/themes/vader/jquery-ui.min.css">
+    <script src="~/jqueryui/jquery-ui.js"></script>
+    <script>
+        // Create Accordion
+        let headings = document.querySelectorAll("h3");
+        let divs = document.querySelectorAll("[id^='myDiv']");
+
+
+        for (var i = 0; i < headings.length; i++) {
+            $("#minor").append($("#" + headings[i].id));
+            $("#minor").append($("#" + divs[i].id));
+        }
+
+        $('#minor').accordion({
+            collapsible: true,
+            active: false,
+            heightStyle: "content"
+        });
+    </script>
+}

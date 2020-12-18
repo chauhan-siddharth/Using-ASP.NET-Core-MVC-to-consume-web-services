@@ -1,0 +1,79 @@
+﻿@model Project3_FinalExam.ViewModels.GradViewModel
+@{
+    ViewData["Title"] = "GraduateDegree-";
+}
+
+<h2>@Model.Title</h2>
+
+
+@section CSS{
+    <style>
+        body {
+            background: #4CA1AF; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
+}
+<div id="myUnderDegrees"></div>
+
+@foreach (var under in Model.Grads)
+{
+    @if (under.degreeName != "graduate advanced certificates")
+    {
+        <h3 id=@String.Concat("myHdng", under.title)><b>@under.title</b></h3>
+
+        <div id=@String.Concat("myDiv", under.title)>
+            <p><b>Degree Name: </b>@under.degreeName</p>
+            <p><b>Description: </b>@under.description</p>
+            <ul>
+                @foreach (var conc in @under.concentrations)
+                {
+                    <li>@conc</li>
+
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    else
+    {
+        <h3 id=@String.Concat("myHdng", under.degreeName)><b>@under.degreeName</b></h3>
+
+        <div id=@String.Concat("myDiv", under.degreeName)>
+
+            <ul>
+                @foreach (var conc in @under.availableCertificates)
+                {
+                    <li>@conc</li>
+
+                }
+            </ul>
+        </div>
+
+    }
+}
+@*Get jQuery and jQueryUI Scripts from wwwroot*@
+@section Scripts {
+    <script src="~/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="~/jqueryui/themes/vader/jquery-ui.min.css">
+    <script src="~/jqueryui/jquery-ui.js"></script>
+    <script>
+        // Create Accordion
+        let headings = document.querySelectorAll("h3");
+        let divs = document.querySelectorAll("[id^='myDiv']");
+
+        for (var i = 0; i < headings.length; i++) {
+            $("#myUnderDegrees").append($("#" + headings[i].id));
+            $("#myUnderDegrees").append($("#" + divs[i].id));
+        }
+
+        $('#myUnderDegrees').accordion({
+            collapsible: true,
+            active: false,
+            heightStyle: "content"
+        });
+    </script>
+}

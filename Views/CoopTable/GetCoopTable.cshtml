@@ -1,0 +1,45 @@
+﻿@model Project3_FinalExam.ViewModels.CoopTableViewModel
+
+@section CSS {
+    <style>
+        h2 {
+            color: red;
+        }
+    </style>
+}
+
+<h2>@Model.Title</h2>
+
+
+<div id="jsGrid"></div>
+
+@section Scripts {
+    <link type="text/css" rel="stylesheet" href="~/lib/jsgrid/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/jsgrid/jsgrid-theme.min.css" />
+
+    <script type="text/javascript" src="~/lib/jsgrid/jsgrid.min.js"></script>
+    <script type="text/javascript" src="~/lib/jsgrid/jsgrid.js"></script>
+
+    <script>
+                    $("#jsGrid").jsGrid({
+                    width: "100%",
+                    height: "400px",
+
+                    inserting: false,
+                    editing: false,
+                    sorting: true,
+                    paging: true,
+
+                    data: @Html.Raw(Json.Serialize(Model.CoopTable)),
+
+                    fields: [
+                    { name: "employer", type: "text", width: 125, validate: "required" },
+                    { name: "degree", type: "text", width: 50 },
+                    { name: "city", type: "text", width: 75 }
+                  
+                    ]
+                    });
+    </script>
+
+
+}

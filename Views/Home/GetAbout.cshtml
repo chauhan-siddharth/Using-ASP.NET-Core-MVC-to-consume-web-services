@@ -1,0 +1,31 @@
+﻿@model Project3_FinalExam.ViewModels.AboutViewModel
+@{
+    ViewData["Title"] = "About Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">About iSchool</h1>
+</div>
+@section CSS{ 
+  
+} 
+
+
+@foreach (var under in Model.About)
+{
+
+
+    <div id=@String.Concat("myDiv", under.title)>
+        <h1>@under.title</h1>
+        <p>@under.description</p>
+        <q>@under.quote</q>
+        <h2>@under.quoteAuthor</h2>
+
+    </div>
+}
+@section Scripts{
+
+
+
+}
+
